@@ -1,0 +1,341 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -784,
+        -96
+      ],
+      "id": "af8416b0-7786-4042-b4a5-1c5e224a20e3",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c6db6bf2-a1a1-46f9-89ce-3ecdc8df0d6b",
+              "name": "company",
+              "value": "ABC Ltd",
+              "type": "string"
+            },
+            {
+              "id": "22194b21-5d3a-4c79-8921-2ce409e772bf",
+              "name": "website",
+              "value": "https://abc.com",
+              "type": "string"
+            },
+            {
+              "id": "fe80a16f-5e2f-4e99-9a8e-cbf4fe09662f",
+              "name": "email",
+              "value": "info@abc.com",
+              "type": "string"
+            },
+            {
+              "id": "df3046cf-03f4-4f0b-8237-c93a31d8808d",
+              "name": "contact_name",
+              "value": "John Smith",
+              "type": "string"
+            },
+            {
+              "id": "8c64f281-eec7-464c-a063-198d52f63502",
+              "name": "run_id",
+              "value": "run_001",
+              "type": "string"
+            },
+            {
+              "id": "13c089a2-6157-4a97-bd76-c5039c122533",
+              "name": "retry_count",
+              "value": 0,
+              "type": "number"
+            },
+            {
+              "id": "ff0c4851-a086-40f6-917d-b72a02e0933e",
+              "name": "status",
+              "value": "NEW",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -624,
+        -192
+      ],
+      "id": "e0a1f318-43a3-45aa-bcea-e2ff86d6c4e4",
+      "name": "Input Data"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "95a4e98e-f21f-4ba1-a1c6-bef3803afc19",
+              "leftValue": "={{$json.company}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "46e19505-798a-415b-9c88-637d7432350a",
+              "leftValue": "={{$json.website}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "9da3966a-b5db-4e32-b651-9fc49d879075",
+              "leftValue": "={{$json.email}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -448,
+        -144
+      ],
+      "id": "31c5fbce-7c55-4f36-b36c-0f112616895d",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "rowNotExists",
+        "dataTableId": {
+          "__rl": true,
+          "value": "YXwCtmKcj30Qv7xP",
+          "mode": "list",
+          "cachedResultName": "workflow_log",
+          "cachedResultUrl": "/projects/iEc54urMdS1Wl8kN/datatables/YXwCtmKcj30Qv7xP"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "run_id",
+              "keyValue": "={{$json.run_id}}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        -240,
+        -128
+      ],
+      "id": "8f4887a9-379a-4aa8-8025-6d7f90940974",
+      "name": "Check Run ID"
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/users/1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -16,
+        -176
+      ],
+      "id": "03571854-da14-4675-82f7-6a35faa29a66",
+      "name": "HTTP Request",
+      "retryOnFail": false
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        96
+      ],
+      "id": "a0ac2040-e2e1-4980-9e08-1226de7b3605",
+      "name": "Wait",
+      "webhookId": "a94d3e17-d253-4424-a069-e470175941dc"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a71dad5a-65a0-438e-a931-7a59859512dd",
+              "name": "run_id",
+              "value": "={{$('Input Data').item.json.run_id}}",
+              "type": "string"
+            },
+            {
+              "id": "b0897d72-38a8-428a-bfa4-00b57f710ff7",
+              "name": "company",
+              "value": "={{$('Input Data').item.json.company}}",
+              "type": "string"
+            },
+            {
+              "id": "3e520cb1-ffd1-443d-94ba-6b2fb6b499a0",
+              "name": "website",
+              "value": "={{$('Input Data').item.json.website}}",
+              "type": "string"
+            },
+            {
+              "id": "fbf57e42-5fec-4286-9aa7-7ce274f3865e",
+              "name": "email",
+              "value": "={{$('Input Data').item.json.email}}",
+              "type": "string"
+            },
+            {
+              "id": "c4c9fca1-aa87-4c2e-a5d3-aa58d21171d6",
+              "name": "contact_name",
+              "value": "={{$('Input Data').item.json.contact_name}}",
+              "type": "string"
+            },
+            {
+              "id": "35800f97-0be2-40f5-a989-a0b8f22810d1",
+              "name": "api_name",
+              "value": "={{$json.name}}",
+              "type": "string"
+            },
+            {
+              "id": "a07f2e54-d911-40ac-97db-dcdfab3db22f",
+              "name": "api_email",
+              "value": "={{$json.email}}",
+              "type": "string"
+            },
+            {
+              "id": "1c53fcd2-0ecf-43b9-8601-1cbbb47f1f5d",
+              "name": "status",
+              "value": "SUCCESS",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        304,
+        -112
+      ],
+      "id": "d776fdc3-7b67-4af1-a90c-aaef18b87a65",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Input Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Input Data": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Check Run ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Run ID": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "3ac20faa-1c5e-4647-b47c-1f9d7415a2e7",
+  "meta": {
+    "instanceId": "9376cbc64bbe85f799432f3d0ad8aa1e0c9bd5108ea504653d3d17a2b5fc29b9"
+  },
+  "nodeGroups": [],
+  "id": "xes4IpvLc7G3CTnc",
+  "tags": [
+    {
+      "updatedAt": "2026-08-04T07:07:48.860Z",
+      "createdAt": "2026-08-04T07:07:48.860Z",
+      "id": "qAsQJuQ9pt58MkkL",
+      "name": "HR003 Competition List B"
+    }
+  ]
+}
