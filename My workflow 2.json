@@ -1,0 +1,114 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "fa192932-6653-4df8-8175-3020943d756e",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      customer: {\n        name: \"John Smith\",\n        address: {\n          city: \"Chicago\",\n          state: \"Illinois\"\n        }\n      },\n      orders: [\n        {\n          orderId: 1001,\n          total: 89.99\n        },\n        {\n          orderId: 1002,\n          total: 45.50\n        }\n      ],\n      membership: \"Gold\"\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "706ff0dd-dfa9-40de-8f91-c7a2db19b519",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "583c3f8c-e361-4e13-81c3-50e6b1e8dc54",
+              "name": "customerName",
+              "value": "={{ $json.customer.name }}",
+              "type": "string"
+            },
+            {
+              "id": "fd67ece3-9c6d-4484-8588-8c14207cccec",
+              "name": "customerCity",
+              "value": "={{ $json.customer.address.city }}",
+              "type": "string"
+            },
+            {
+              "id": "506b689b-b4d8-47a2-9e0d-f41b06485f99",
+              "name": "firstOrderTotal",
+              "value": "={{ $json.orders[0].total }}",
+              "type": "string"
+            },
+            {
+              "id": "6db9efa1-1543-4b6d-bf00-95d17442409d",
+              "name": "membershipLevel",
+              "value": "={{ $json.membership }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        416,
+        0
+      ],
+      "id": "957e0979-42be-4f22-a335-ef505e3812eb",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "3978c991-45bc-4efb-b2e9-472435d733ae",
+  "meta": {
+    "instanceId": "9376cbc64bbe85f799432f3d0ad8aa1e0c9bd5108ea504653d3d17a2b5fc29b9"
+  },
+  "nodeGroups": [],
+  "id": "YCRCJlw5axTRho50",
+  "tags": [
+    {
+      "name": "Topic4_JSON_Data_Assessm",
+      "id": "cXJfaSWFGn5UBHIv",
+      "updatedAt": "2026-08-06T07:21:54.231Z",
+      "createdAt": "2026-08-06T07:21:54.231Z"
+    }
+  ]
+}
