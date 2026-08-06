@@ -1,0 +1,143 @@
+{
+  "name": "My workflow 3",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "0b03c8a8-d297-4d6e-ae80-12c4b3b90610",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6225b360-c3f2-4c16-bed8-12fa9ad4e2e3",
+              "name": "firstName",
+              "value": "john",
+              "type": "string"
+            },
+            {
+              "id": "d88637a0-41ea-43c9-9f6e-69eefa972bab",
+              "name": "lastName",
+              "value": "smith",
+              "type": "string"
+            },
+            {
+              "id": "e9443858-e2fd-4aec-8f7f-602e2e106a70",
+              "name": "birthDate",
+              "value": "1998-04-12T08:30:00Z",
+              "type": "string"
+            },
+            {
+              "id": "b0347daf-be8c-4742-a7d1-67aa2166cf23",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        208,
+        0
+      ],
+      "id": "c10ac231-cffe-48bb-b941-72dc2495e57d",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1eb1aca2-df33-4e79-80d2-5957c1b84ea6",
+              "name": "fullNameUpperCase",
+              "value": "={{ ($json.firstName + ' ' + $json.lastName).toUpperCase() }}",
+              "type": "string"
+            },
+            {
+              "id": "14008b7c-48db-4cc0-9111-5abdee2993a1",
+              "name": "formattedBirthDate",
+              "value": "={{ DateTime.fromISO($json.birthDate).toFormat(\"MMMM dd, yyyy\") }}",
+              "type": "string"
+            },
+            {
+              "id": "34cfcaae-77a9-4480-9814-c84763dff176",
+              "name": "processedDate",
+              "value": "={{ $now.toFormat(\"yyyy-MM-dd\") }}",
+              "type": "string"
+            },
+            {
+              "id": "6970174a-93d4-4eaf-b219-351d1b85627d",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": "={{ false }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        416,
+        0
+      ],
+      "id": "83aa1655-69e0-4dc3-bfb0-f02b8d604ad5",
+      "name": "Edit Fields1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "714518d3-8042-45a4-b78a-50106e0f2029",
+  "meta": {
+    "instanceId": "9376cbc64bbe85f799432f3d0ad8aa1e0c9bd5108ea504653d3d17a2b5fc29b9"
+  },
+  "nodeGroups": [],
+  "id": "cnAzDmQJLZVAXa2W",
+  "tags": [
+    {
+      "name": "Topic5_Expressions_Asses",
+      "id": "wjKzDkzORNtPSwHF",
+      "updatedAt": "2026-08-06T09:15:30.027Z",
+      "createdAt": "2026-08-06T09:15:30.027Z"
+    }
+  ]
+}
