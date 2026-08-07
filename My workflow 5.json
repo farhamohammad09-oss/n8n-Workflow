@@ -1,0 +1,192 @@
+{
+  "name": "My workflow 5",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        -16
+      ],
+      "id": "623e3b30-c0fe-4600-b752-b2c391ca530e",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "529cae46-0329-41b9-84f7-64513586bed0",
+              "name": "customer",
+              "value": "John Smith",
+              "type": "string"
+            },
+            {
+              "id": "b7594ad4-f903-4786-a29f-de7c8e32a126",
+              "name": "orderValue",
+              "value": 150,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -176,
+        -16
+      ],
+      "id": "b53ece27-0247-4eda-aa69-c6ec50ead6f2",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "86cd8f4b-86bb-4bf0-8f5d-54bcaffb446b",
+              "leftValue": "={{$json.orderValue}}",
+              "rightValue": 100,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -32,
+        -16
+      ],
+      "id": "d71175f0-5318-4f57-88dd-5c221452dd61",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a7aebaac-b68d-43f4-a002-97f3bee759d9",
+              "name": "status",
+              "value": "Regular",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        256,
+        -80
+      ],
+      "id": "652beb05-fd8c-4bd6-aad2-11f9d591baac",
+      "name": "Set VIP"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9957081e-4d4a-4538-b9a1-3f0e7cea60f1",
+              "name": "customer",
+              "value": "John Smith",
+              "type": "string"
+            },
+            {
+              "id": "196337f0-cd84-43d2-a3a9-70e18e8bd155",
+              "name": "orderValue",
+              "value": 150,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        176,
+        80
+      ],
+      "id": "b8469814-66e3-437e-b592-ab91aceec1e8",
+      "name": "Regular"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Set VIP",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Regular",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "f0010c66-c859-4393-92fb-93865c322e46",
+  "meta": {
+    "instanceId": "9376cbc64bbe85f799432f3d0ad8aa1e0c9bd5108ea504653d3d17a2b5fc29b9"
+  },
+  "nodeGroups": [],
+  "id": "6b3T9DmwjShKjYlC",
+  "tags": [
+    {
+      "name": "Workflown8n_New",
+      "id": "uXsnob0W7AFeyV4p",
+      "updatedAt": "2026-08-07T10:55:43.033Z",
+      "createdAt": "2026-08-07T10:55:43.033Z"
+    }
+  ]
+}
